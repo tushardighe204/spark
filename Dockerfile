@@ -1,5 +1,5 @@
 # Use an official Apache Spark runtime as the base image
-FROM docker.io/apache/spark:3.2.0
+FROM apache/spark:3.4.2-scala
 
 # Set the working directory
 WORKDIR /opt/spark/work-dir
