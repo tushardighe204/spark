@@ -1,22 +1,12 @@
-# Use an official Apache Spark runtime as the base image
-FROM spark:3.5.0-scala2.12-java17-ubuntu
-
-# Set the working directory
-WORKDIR /opt/spark/work-dir
-
-# Copy the application code into the container
-COPY . /opt/spark/work-dir
-
-USER root
-
-RUN set -ex; \
-    apt-get update; \
-    apt-get install -y python3 python3-pip; \
-    rm -rf /var/lib/apt/lists/*
-USER spark
-
-# Compile the Spark application
-#RUN scalac -classpath "/opt/spark/jars/*" SparkTest.scala
-
-# Execute the Spark application
-#CMD ["spark-submit", "--class", "SparkTest", "--master", "local[*]", "SparkTest.jar"]
+FROM openjdk:8-jdk
+# Install Spark
+RUN curl -O https://archive.apache.org/dist/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz && \
+    tar -xvf spark-3.2.0-bin-hadoop3.2.tgz && \
+    mv spark-3.2.0-bin-hadoop3.2 /usr/local/spark
+WORKDIR /app
+# Copy the Scala source file into the container
+COPY HelloWorldSpark.scala .
+# Compile the Scala source file
+RUN /usr/local/spark/bin/spark-shell --packages org.apache.spark:spark-sql_2.12:3.2.0 --jars /usr/local/spark/jars/* --driver-memory 512M -c  HelloWorldSpark.scala
+# Command to run the Spark application
+CMD ["/usr/local/spark/bin/spark-submit", "--class", "HelloWorldSpark", "/app/target/scala-2.12/HelloWorldSpark.jar"]
