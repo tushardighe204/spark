@@ -13,9 +13,10 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y python3 python3-pip; \
     rm -rf /var/lib/apt/lists/*
+USER spark
 
 # Compile the Spark application
-RUN scalac -classpath "/opt/spark/jars/*" SparkTest.scala
+#RUN scalac -classpath "/opt/spark/jars/*" SparkTest.scala
 
 # Execute the Spark application
-CMD ["spark-submit", "--class", "SparkTest", "--master", "local[*]", "SparkTest.jar"]
+#CMD ["spark-submit", "--class", "SparkTest", "--master", "local[*]", "SparkTest.jar"]
