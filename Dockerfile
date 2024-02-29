@@ -1,5 +1,5 @@
 # Use an official Apache Spark runtime as the base image
-FROM apache/spark:latest
+FROM bitnami/spark:latest
 
 # Set the working directory
 WORKDIR /opt/spark/work-dir
