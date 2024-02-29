@@ -16,7 +16,7 @@ RUN apt-get update && \
     apt-get clean
 
 # Switch back to non-root user
-USER 185
+#USER 185
 
 # Set environment variables for Spark and Scala versions
 ENV SPARK_VERSION=3.2.0
