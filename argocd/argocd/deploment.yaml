@@ -15,7 +15,7 @@ spec:
       containers:
       - name: spark-pi
         image: tushardighe/spark-pi:latest
-        #command: ["/bin/sh", "-c"]
-        #args: ["sleep 1000"]
+        command: ["/bin/sh", "-c"]
+        args: [" sh /run_multiple_times.sh"]
         ports:
         - containerPort: 4040  # Assuming this is the port your Spark application exposes
