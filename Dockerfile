@@ -12,4 +12,4 @@ COPY HelloWorldSpark.scala .
 # Compile the Scala source file to generate the class files
 RUN scalac -classpath "$(find /usr/local/spark -name '*jar' | tr '\n' ':')" HelloWorldSpark.scala
 # Command to run the Scala application
-CMD ["scala", "HelloWorldSpark"]
+CMD ["scala", "HelloWorld"]
