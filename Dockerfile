@@ -9,4 +9,4 @@ COPY HelloWorldSpark.scala .
 # Compile the Scala source file
 RUN /usr/local/spark/bin/spark-shell --packages org.apache.spark:spark-sql_2.12:3.2.0 --jars /usr/local/spark/jars/* --driver-memory 512M -c  HelloWorldSpark.scala
 # Command to run the Spark application
-CMD ["/usr/local/spark/bin/spark-submit", "--class", "HelloWorldSpark", "/app/target/scala-2.12/HelloWorldSpark.jar"]
+CMD ["scala", "HelloWorldSpark"]
