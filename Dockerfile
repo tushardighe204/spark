@@ -19,10 +19,16 @@ ENV SPARK_VERSION=$SPARK_VERSION
 ENV SPARK_HOME=/opt/spark
 ENV PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
+# Switch to root user to install Scala
+USER root
+
 # Install Scala
 RUN apt-get update && \
-    apt-get install -y scala
+    apt-get install -y scala && \
+    apt-get clean
 
+# Switch back to non-root user
+USER 185
 # Compile and run the Spark application
 RUN scalac -classpath "$(hadoop classpath)" SparkTest.scala && \
     spark-submit --class SparkTest --master local[*] SparkTest.jar
