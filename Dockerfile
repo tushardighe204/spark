@@ -27,7 +27,7 @@ ENV SPARK_HOME=/opt/spark
 ENV SCALA_HOME=/usr/share/scala
 
 # Compile the Spark application
-RUN scalac -classpath "$SPARK_HOME/jars/spark-core_2.12-$SPARK_VERSION.jar:$SPARK_HOME/jars/spark-sql_2.12-$SPARK_VERSION.jar:$SPARK_HOME/jars/spark-hive_2.12-$SPARK_VERSION.jar" SparkTest.scala
+RUN scalac -classpath "$SPARK_HOME/jars/*" SparkTest.scala
 
 # Execute the Spark application
 CMD ["spark-submit", "--class", "SparkTest", "--master", "local[*]", "SparkTest.jar"]
