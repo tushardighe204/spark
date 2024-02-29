@@ -15,7 +15,7 @@ spec:
       containers:
       - name: spark-pi
         image: tushardighe/spark-pi:latest
-        command: ["/bin/sh", "-c"]
-        args: ["echo", "This is Spark Application for production environment"]
+        #command: ["/bin/sh", "-c"]
+        command: ["echo", "This is Spark Application for production environment"]
         ports:
         - containerPort: 4040  # Assuming this is the port your Spark application exposes
