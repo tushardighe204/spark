@@ -1,5 +1,5 @@
 # Use an official Apache Spark runtime as the base image
-FROM apache/spark:3.4.2-scala
+FROM apache/spark:latest
 
 # Set the working directory
 WORKDIR /opt/spark/work-dir
