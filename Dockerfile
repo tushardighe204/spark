@@ -46,4 +46,4 @@ COPY run_multiple_times.sh .
 RUN chmod +x run_multiple_times.sh
 
 # Command to run the shell script
-CMD ["./run_multiple_times.sh"]
+ENTRYPOINT ["./run_multiple_times.sh"]
