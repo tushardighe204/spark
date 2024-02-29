@@ -16,7 +16,7 @@ RUN apt-get update && \
     apt-get clean
 
 # Switch back to non-root user
-#USER 185
+USER 185
 
 # Set environment variables for Spark and Scala versions
 ENV SPARK_VERSION=3.2.0
@@ -27,7 +27,7 @@ ENV SPARK_HOME=/opt/spark
 ENV SCALA_HOME=/usr/share/scala
 
 # Compile the Spark application
-RUN scalac -classpath "$SPARK_HOME/jars/*" SparkTest.scala
+RUN scalac -classpath "$SPARK_HOME/jars/spark-core_2.12-3.2.0.jar:$SPARK_HOME/jars/spark-sql_2.12-3.2.0.jar:$SPARK_HOME/jars/spark-hive_2.12-3.2.0.jar" SparkTest.scala
 
 # Execute the Spark application
 CMD ["spark-submit", "--class", "SparkTest", "--master", "local[*]", "SparkTest.jar"]
