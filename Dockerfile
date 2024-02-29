@@ -18,8 +18,16 @@ RUN apt-get update && \
 # Switch back to non-root user
 USER 185
 
+# Set environment variables for Spark and Scala versions
+ENV SPARK_VERSION=3.2.0
+ENV SCALA_VERSION=2.12
+
+# Set the Spark and Scala home directories
+ENV SPARK_HOME=/opt/spark
+ENV SCALA_HOME=/usr/share/scala
+
 # Compile the Spark application
-RUN scalac -classpath "$SPARK_HOME/jars/*" SparkTest.scala
+RUN scalac -classpath "$SPARK_HOME/jars/spark-core_2.12-$SPARK_VERSION.jar:$SPARK_HOME/jars/spark-sql_2.12-$SPARK_VERSION.jar:$SPARK_HOME/jars/spark-hive_2.12-$SPARK_VERSION.jar" SparkTest.scala
 
 # Stage 2: Package stage
 FROM apache/spark:latest
