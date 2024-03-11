@@ -27,7 +27,7 @@ jobs:
         file: ./Dockerfile
         platforms: linux/amd64
         push: true
-        tags: abhijitdhamne/spark-pi:${{ steps.commit_id.outputs.commit_id }}
+        tags: tushardighe/spark-pi:${{ steps.commit_id.outputs.commit_id }}
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -35,7 +35,7 @@ jobs:
       run: |
           COMMIT_ID=$(git rev-parse --short HEAD)
           DEPLOYMENT_FILE="argocd/deployment.yaml"
-          sed -i "s|image: dighetushar654/spark-pi:[^ ]*|image: dighetushar654/spark-pi:${COMMIT_ID}|g" ${DEPLOYMENT_FILE}
+          sed -i "s|image: tushardighe/spark-pi:[^ ]*|image: tushardighe/spark-pi:${COMMIT_ID}|g" ${DEPLOYMENT_FILE}
           echo "Updated deployment.yaml with the latest commit ID: ${COMMIT_ID}"
     - name: Debug - Show content of deployment.yaml after update
       run: cat argocd/deployment.yaml
