@@ -12,7 +12,7 @@ jobs:
     - name: Copy custom folder
       run: |
           sudo mkdir -p /home/user/spark-app
-          cp -r app/* /home/user/spark-app
+          cp -r . /home/user/spark-app
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
     - name: Log in to Docker Hub
