@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-pi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-pi
+  template:
+    metadata:
+      labels:
+        app: spark-pi
+    spec:
+      containers:
+      - name: spark-pi
+        image: tushardighe/spark-pi:latest
+        ports:
+        - containerPort: 4040  # Assuming this is the port your Spark application exposes
