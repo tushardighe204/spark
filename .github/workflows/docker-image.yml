@@ -1,50 +1,33 @@
-name: Build, Push Docker Image, and Update Deployment
+name: Build and Push Docker Image
+
 on:
   push:
     branches:
       - main
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Copy custom folder
-      run: |
-          sudo mkdir -p /home/user/spark-app
-          cp -r . /home/user/spark-app
+      
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
+
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-    - name: Get commit ID
-      id: commit_id
-      run: echo "::set-output name=commit_id::$(git rev-parse --short HEAD)"
+      
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
+      
       with:
         context: .
         file: ./Dockerfile
         platforms: linux/amd64
         push: true
-        tags: tushardighe/spark-pi:${{ steps.commit_id.outputs.commit_id }}
+        tags: tushardighe/spark-pi:v1
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Update deployment YAML with latest commit ID
-      run: |
-          COMMIT_ID=$(git rev-parse --short HEAD)
-          DEPLOYMENT_FILE="argocd/deployment.yaml"
-          sed -i "s|image: tushardighe/spark-pi:[^ ]*|image: tushardighe/spark-pi:${COMMIT_ID}|g" ${DEPLOYMENT_FILE}
-          echo "Updated deployment.yaml with the latest commit ID: ${COMMIT_ID}"
-    - name: Debug - Show content of deployment.yaml after update
-      run: cat argocd/deployment.yaml
-    - name: Commit changes to deployment file
-      #env:
-       # PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-      run: |
-          git config --global user.name "dighetushar654"
-          git config --global user.email "dighetushar654@gmail.com"
-          git add argocd/deployment.yaml
-          git commit -m "Update image tag and commit ID in deployment.yaml"
-          git push
