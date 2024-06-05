@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - tushardighe/spark-pi:v2
