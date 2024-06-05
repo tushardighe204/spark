@@ -1,3 +1,3 @@
 kustomize:
   images:
-  - tushardighe/spark-pi:9c4b428
+  - tushardighe/spark-pi:4e9e8aa
