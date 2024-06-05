@@ -3,6 +3,3 @@ kind: Kustomization
 resources:
   - deployment.yaml
   - svc.yaml
-
-images:
-  - name: tushardighe/spark-pi
